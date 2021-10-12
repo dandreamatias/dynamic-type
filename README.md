@@ -2,7 +2,7 @@
 
 A web component that type!
 
-![assets/example.gif]
+![](assets/example.gif)
 
 ## Usage
 
