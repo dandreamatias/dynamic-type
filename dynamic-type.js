@@ -1,4 +1,4 @@
-class DynamicType extends HTMLElement {
+export class DynamicType extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -9,9 +9,9 @@ class DynamicType extends HTMLElement {
     this.words = (this.getAttribute('words') || '').split(';');
     this.loop = this.getAttribute('loop') === 'true' || this.getAttribute('loop') === true;
     this.colors = (this.getAttribute('colors') || '').split(';');
-    this.typeDelay = Number(this.getAttribute('typeDelay') || 250);
-    this.deleteDelay = Number(this.getAttribute('deleteDelay') || 100);
-    this.deleteStartAfter = Number(this.getAttribute('deleteStartAfter') || 750);
+    this.typeDelay = Number(this.getAttribute('typeDelay') || 130);
+    this.deleteDelay = Number(this.getAttribute('deleteDelay') || 70);
+    this.deleteStartAfter = Number(this.getAttribute('deleteStartAfter') || 600);
     this.index = 0;
     this.init();
   }
@@ -22,30 +22,27 @@ class DynamicType extends HTMLElement {
       const word = this.words[this.index];
       const color = this.colors[this.index % this.colors.length];
       if (color) this.style.color = color;
-      await this.animateWord(word, isLastWord)
+      await this.animateWord(word, isLastWord);
       if (this.loop && isLastWord) {
-        this.index = -1; // reset index for infinte loop
+        this.index = -1;
       }
     }
   }
 
   async animateWord(word, isLastWord) {
     for (let i = 0; i < word.length; i++) {
-      await this.promisifyCallBack(
-        () => this.shadowRoot.innerHTML += word.charAt(i),
-        this.typeDelay
-      );
+      const appendChar = () => (this.shadowRoot.innerHTML += word.charAt(i));
+      await this.promisifyCallBack(appendChar, this.typeDelay);
     }
     if (isLastWord && !this.loop) {
-      return this.classList.add('dynamic-type-animation-end')
-    };
-    await this.promisifyCallBack(() => { }, this.deleteStartAfter);
+      return this.classList.add('dynamic-type-animation-end');
+    }
+    await this.promisifyCallBack(() => {}, this.deleteStartAfter);
     if (!isLastWord || (isLastWord && this.loop)) {
       for (let i = word.length; i > 0; i--) {
-        await this.promisifyCallBack(
-          () => this.shadowRoot.innerHTML = this.shadowRoot.innerHTML.slice(0, -1),
-          this.deleteDelay
-        );
+        const removeLastChar = () =>
+          (this.shadowRoot.innerHTML = this.shadowRoot.innerHTML.slice(0, -1));
+        await this.promisifyCallBack(removeLastChar, this.deleteDelay);
       }
     }
   }
@@ -55,8 +52,8 @@ class DynamicType extends HTMLElement {
       setTimeout(() => {
         syncCallBack();
         res();
-      }, delay)
-    })
+      }, delay);
+    });
   }
 }
 window.customElements.define('dynamic-type', DynamicType);

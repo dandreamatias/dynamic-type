@@ -1,0 +1,27 @@
+{
+  "name": "wc-dynamic-type",
+  "version": "1.0.0",
+  "description": "a simple web component that type",
+  "main": "dynamic-type.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dandreamatias/dynamic-type.git"
+  },
+  "keywords": [
+    "web-component",
+    "wc",
+    "type",
+    "animation",
+    "html"
+  ],
+  "author": "Matias D'Andrea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dandreamatias/dynamic-type/issues"
+  },
+  "homepage": "https://github.com/dandreamatias/dynamic-type#readme"
+}
