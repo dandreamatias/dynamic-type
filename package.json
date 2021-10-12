@@ -1,6 +1,6 @@
 {
   "name": "wc-dynamic-type",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "a simple web component that type",
   "main": "dynamic-type.js",
   "type": "module",
