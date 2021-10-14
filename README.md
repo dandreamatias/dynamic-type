@@ -17,7 +17,7 @@ npm i wc-dynamic-type
 or via cdn in your head tag
 
 ```
-<script defer src="https://unpkg.com/wc-dynamic-type@1.0.0/dynamic-type.js"></script>
+<script defer src="https://unpkg.com/wc-dynamic-type@1.0.0/dynamic-type.js" type="module"></script>
 ```
 
 ### use the component
